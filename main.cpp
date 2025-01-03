@@ -28,7 +28,7 @@ struct StudentData
     string academic_standing;
 };
 
-const int MAX_STUDENTS_SIZE = 2;
+const int MAX_STUDENTS_SIZE = 5;
 StudentData students[MAX_STUDENTS_SIZE];
 int student_count = 0;
 
@@ -150,6 +150,42 @@ void displayNumberOfStudents()
 {
     cout << "The Number of Student are: " << student_count << endl;
 }
+
+void searchById()
+{
+    int id;
+    cout << "Enter the ID of the student: ";
+    cin >> id;
+
+    for (int i = 0; i < student_count; i++)
+    {
+        if (students[i].id == id)
+        {
+            cout << "Student Found!" << endl;
+            cout << "ID: " << students[i].id << endl;
+            cout << "Name: " << students[i].name << endl;
+            cout << "GPA: " << students[i].gpa << endl;
+        }
+    }
+}
+
+void sortById()
+{
+    for (int i = 0; i < student_count - 1; i++)
+    {
+
+        for (int j = 0; j < student_count - i - 1; j++)
+        {
+            if (students[j].id > students[j + 1].id)
+            {
+                StudentData temp = students[j];
+                students[j] = students[j + 1];
+                students[j + 1] = temp;
+            }
+        }
+    }
+    cout << "Sorted By ID!";
+}
 void menu()
 {
     int choice = 0;
@@ -198,7 +234,7 @@ void menu()
                 cout << "Search By Age\n";
                 break;
             case 2:
-                cout << "Search By ID\n";
+                searchById();
                 break;
             case 3:
                 cout << "Search By Degree\n";
@@ -229,7 +265,7 @@ void menu()
                 cout << "Sort By Age\n";
                 break;
             case 2:
-                cout << "Sort By ID\n";
+                sortById();
                 break;
             case 3:
                 cout << "Sort By Degree\n";
