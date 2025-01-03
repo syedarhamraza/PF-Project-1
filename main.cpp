@@ -28,16 +28,32 @@ struct StudentData
     string academic_standing;
 };
 
-StudentData students[2];
+const int MAX_STUDENTS_SIZE = 2;
+StudentData students[MAX_STUDENTS_SIZE];
 int student_count = 0;
+
+bool isIDUnique(int id)
+{
+    for (int i = 0; i < student_count; i++)
+    {
+        if (students[i].id == id)
+            return false;
+    }
+    return true;
+}
 
 void addStudents()
 {
     cout << "\nEnter Student Data!\n";
-    for (int i = 0; i < 2; i++)
+    for (int i = student_count; i < MAX_STUDENTS_SIZE; i++)
     {
         cout << "Enter ID(only numbers allowed!): ";
         cin >> students[i].id;
+        if (isIDUnique(students[i].id) == false)
+        {
+            cout << "ID already Exists";
+            return;
+        }
         cin.ignore();
         cout << "Enter Student Name: ";
         getline(cin, students[i].name);
@@ -60,9 +76,8 @@ void displayStudents()
 void deleteStudents()
 {
     int id;
-    cout << "Enter the ID of student you want to delete: ";
+    cout << "Enter the ID of student: ";
     cin >> id;
-
     for (int i = 0; i < student_count; i++)
     {
         if (students[i].id == id)
@@ -72,7 +87,7 @@ void deleteStudents()
                 students[j] = students[j + 1];
             }
             student_count--;
-            cout << "Student deleted successfully!" << endl;
+            cout << "Student deleted!" << endl;
             return;
         }
     }
@@ -82,27 +97,26 @@ void deleteStudents()
 void updateStudents()
 {
     int id;
-    cout << "Enter the ID of the student you want to update: ";
+    cout << "Enter the ID of the student: ";
     cin >> id;
-
     int choice = 0;
     do
     {
         cout << "What do you want to Update\n";
         cout << "1. Name\n";
-        cout << "2. Gpa\n";
+        cout << "2. GPA\n";
         cout << "3. Go Back\n";
-        cout << "Enter you choice: ";
+        cout << "Enter your choice: ";
         cin >> choice;
         switch (choice)
         {
         case 1:
             for (int i = 0; i < student_count; i++)
             {
-                string new_name;
                 if (students[i].id == id)
                 {
-                    cout << "Enter new name of the student " << students[i].name << endl;
+                    string new_name;
+                    cout << "Enter new name of the student " << students[i].name << ": ";
                     cin.ignore();
                     getline(cin, new_name);
                     students[i].name = new_name;
@@ -112,25 +126,29 @@ void updateStudents()
         case 2:
             for (int i = 0; i < student_count; i++)
             {
-                double new_gpa;
                 if (students[i].id == id)
                 {
-                    cout << "Enter new gpa of the student " << students[i].gpa << endl;
+                    double new_gpa;
+                    cout << "Enter new GPA of the student " << students[i].gpa << ": ";
                     cin >> new_gpa;
                     students[i].gpa = new_gpa;
                 }
             }
             break;
         case 3:
-            cout << "Going Back!";
+            cout << "Going Back!\n";
             break;
 
         default:
-            cout
-                << "Enter only valid number";
+            cout << "Enter only valid number\n";
             break;
         }
     } while (choice != 3);
+}
+
+void displayNumberOfStudents()
+{
+    cout << "The Number of Student are: " << student_count << endl;
 }
 void menu()
 {
@@ -163,7 +181,7 @@ void menu()
             displayStudents();
             break;
         case 5:
-            cout << "Display number of students\n";
+            displayNumberOfStudents();
             break;
         case 6:
             int choice_search;
