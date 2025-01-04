@@ -7,28 +7,31 @@ struct StudentData
     int id;
     string name;
     int age;
-    double weight;
-    string grade;
+    string date_of_birth;
     string address;
     string phone_number;
     string email;
+    string cnic;
+    string roll_number;
+    string blood_group;
+
+    double gpa;
     string degree;
     string joining_session;
-    double gpa;
     string courses[5];
-    string roll_number;
-    string cnic;
-    string date_of_birth;
-    string blood_group;
-    string medical_conditions;
-    string emergency_contact;
-    bool is_fee_paid;
+    string grade;
     string scholarship;
-    string financial_status;
     string academic_standing;
+
+    string medical_conditions;
+
+    bool is_fee_paid;
+    string financial_status;
+
+    string emergency_contact;
 };
 
-const int MAX_STUDENTS_SIZE = 5;
+const int MAX_STUDENTS_SIZE = 2;
 StudentData students[MAX_STUDENTS_SIZE];
 int student_count = 0;
 
@@ -47,6 +50,9 @@ void addStudents()
     cout << "\nEnter Student Data!\n";
     for (int i = student_count; i < MAX_STUDENTS_SIZE; i++)
     {
+
+        cout << "\nPersonal Information\n";
+
         cout << "Enter ID(only numbers allowed!): ";
         cin >> students[i].id;
         if (isIDUnique(students[i].id) == false)
@@ -57,19 +63,113 @@ void addStudents()
         cin.ignore();
         cout << "Enter Student Name: ";
         getline(cin, students[i].name);
-        cout << "Enter GPA: ";
-        cin >> students[i].gpa;
+        cout << "Enter Age: ";
+        cin >> students[i].age;
+        if (students[i].age <= 0)
+        {
+            cout << "Negative or 0 is not allowed!\n";
+            cout << "Enter Again!\n";
+            i--;
+            continue;
+        }
+        cout << "Enter Date of Birth: ";
+        cin >> students[i].date_of_birth;
         cin.ignore();
+        cout << "Enter Address: ";
+        getline(cin, students[i].address);
+        cout << "Enter Phone Number: ";
+        cin >> students[i].phone_number;
+        cout << "Enter Email: ";
+        cin >> students[i].email;
+        cout << "Enter Cnic: ";
+        cin >> students[i].cnic;
+        cout << "Enter Roll-Number: ";
+        cin >> students[i].roll_number;
+        cout << "Enter Blood Group: ";
+        cin >> students[i].blood_group;
+
+        cout << "\nAcademic Information\n";
+        cout << "Enter GPA (0.0 to 4.0): ";
+        cin >> students[i].gpa;
+        if (students[i].gpa < 0.0 || students[i].gpa > 4.0)
+        {
+            cout << "Only 0.0 to 4.0 is allowed!\n";
+            cout << "Enter Again!\n";
+            i--;
+            continue;
+        }
+        cin.ignore();
+        cout << "Enter Degree: ";
+        cin >> students[i].degree;
+        cout << "Enter Joining Session: ";
+        cin >> students[i].joining_session;
+
+        cout << "Enter 5 courses (code):\n";
+        for (int j = 0; j < 5; j++)
+        {
+            cout << "Course " << j + 1 << ": ";
+            cin >> students[i].courses[j];
+        }
+
+        cout << "Enter Grade: ";
+        cin >> students[i].grade;
+        cout << "Enter Academic Standing: ";
+        cin >> students[i].academic_standing;
+
+        cout << "\nMedical Information\n";
+        cout << "Enter any medical conditions (if any): ";
+        cin.ignore();
+        getline(cin, students[i].medical_conditions);
+
+        cout << "\nFinancial Information\n";
+        cout << "Enter Financial Status(Good or Bad): ";
+        cin >> students[i].financial_status;
+        cout << "Has the fee been paid (1 for Yes, 0 for No): ";
+        cin >> students[i].is_fee_paid;
+
+        cout << "\nEmergency Contact\n";
+        cout << "Enter Emergency Contact Number: ";
+        cin >> students[i].emergency_contact;
+
         student_count++;
     }
 }
-
 void displayStudents()
 {
-    cout << "ID\tName\tGPA\n";
+    cout << "\nDisplaying Student Information:\n";
+    cout << "-------------------------------------------------------------\n";
+
     for (int i = 0; i < student_count; i++)
     {
-        cout << students[i].id << "\t" << students[i].name << "\t" << students[i].gpa << "\n";
+        cout << "ID: " << students[i].id << "\n"
+             << "Name: " << students[i].name << "\n"
+             << "Age: " << students[i].age << "\n"
+             << "Date of Birth: " << students[i].date_of_birth << "\n"
+             << "Adress: " << students[i].address << "\n"
+             << "Phone: " << students[i].phone_number << "\n"
+             << "Email: " << students[i].email << "\n"
+             << "Cnic: " << students[i].cnic << "\n"
+             << "Roll-No: " << students[i].roll_number << "\n"
+             << "Blood Group: " << students[i].blood_group << "\n"
+             << "GPA: " << students[i].gpa << "\n"
+             << "Degree: " << students[i].degree << "\n"
+             << "Joining Session: " << students[i].joining_session << "\n";
+
+        cout << "Courses: ";
+        for (int j = 0; j < 5; j++)
+        {
+            cout << students[i].courses[j] << " ";
+        }
+        cout << "\n";
+
+        cout << "Grade: " << students[i].grade << "\n";
+        cout << "Scholarship: " << students[i].scholarship << "\n";
+        cout << "Academic Standing: " << students[i].academic_standing << "\n";
+        cout << "Medical Conditions: " << students[i].medical_conditions << "\n";
+        cout << "Fee Paid: " << (students[i].is_fee_paid ? "Yes" : "No") << "\n";
+        cout << "Financial Status: " << students[i].financial_status << "\n";
+        cout << "Emergency Contact: " << students[i].emergency_contact << "\n";
+        cout << "-------------------------------------------------------------\n";
     }
 }
 
