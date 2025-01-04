@@ -14,20 +14,15 @@ struct StudentData
     string cnic;
     string roll_number;
     string blood_group;
-
     double gpa;
     string degree;
     string joining_session;
     string courses[5];
-    string grade;
     string scholarship;
     string academic_standing;
-
     string medical_conditions;
-
     bool is_fee_paid;
     string financial_status;
-
     string emergency_contact;
 };
 
@@ -40,6 +35,26 @@ bool isIDUnique(int id)
     for (int i = 0; i < student_count; i++)
     {
         if (students[i].id == id)
+            return false;
+    }
+    return true;
+}
+
+bool isRollNumberUnique(const string &rollnumber)
+{
+    for (int i = 0; i < student_count; i++)
+    {
+        if (students[i].roll_number == rollnumber)
+            return false;
+    }
+    return true;
+}
+
+bool isEmailUnique(const string &email)
+{
+    for (int i = 0; i < student_count; i++)
+    {
+        if (students[i].email == email)
             return false;
     }
     return true;
@@ -58,10 +73,11 @@ void addStudents()
         if (isIDUnique(students[i].id) == false)
         {
             cout << "ID already Exists";
-            return;
+            i--;
+            continue;
         }
-        cin.ignore();
         cout << "Enter Student Name: ";
+        cin.ignore();
         getline(cin, students[i].name);
         cout << "Enter Age: ";
         cin >> students[i].age;
@@ -71,20 +87,35 @@ void addStudents()
             cout << "Enter Again!\n";
             i--;
             continue;
+        } /*
+         cout << "Enter Date of Birth: ";
+         cin >> students[i].date_of_birth;
+         cout << "Enter Address: ";
+         cin.ignore();
+         getline(cin, students[i].address);
+         cout << "Enter Phone Number: ";
+         cin >> students[i].phone_number;
+         cout << "Enter Email: ";
+         cin >> students[i].email;
+          if (isEmailUnique(students[i].email) == false)
+        {
+            cout << "Email already Exists";
+            i--;
+            continue;
         }
-        cout << "Enter Date of Birth: ";
-        cin >> students[i].date_of_birth;
-        cin.ignore();
-        cout << "Enter Address: ";
-        getline(cin, students[i].address);
-        cout << "Enter Phone Number: ";
-        cin >> students[i].phone_number;
-        cout << "Enter Email: ";
-        cin >> students[i].email;
-        cout << "Enter Cnic: ";
-        cin >> students[i].cnic;
+         cout << "Enter Cnic: ";
+         cin >> students[i].cnic;
+
         cout << "Enter Roll-Number: ";
         cin >> students[i].roll_number;
+        if (isRollNumberUnique(students[i].roll_number) == false)
+        {
+            cout << "Roll-Number already Exists";
+            i--;
+            continue;
+        }
+         */
+        /*
         cout << "Enter Blood Group: ";
         cin >> students[i].blood_group;
 
@@ -111,8 +142,6 @@ void addStudents()
             cin >> students[i].courses[j];
         }
 
-        cout << "Enter Grade: ";
-        cin >> students[i].grade;
         cout << "Enter Academic Standing: ";
         cin >> students[i].academic_standing;
 
@@ -130,6 +159,7 @@ void addStudents()
         cout << "\nEmergency Contact\n";
         cout << "Enter Emergency Contact Number: ";
         cin >> students[i].emergency_contact;
+        */
 
         student_count++;
     }
@@ -162,7 +192,6 @@ void displayStudents()
         }
         cout << "\n";
 
-        cout << "Grade: " << students[i].grade << "\n";
         cout << "Scholarship: " << students[i].scholarship << "\n";
         cout << "Academic Standing: " << students[i].academic_standing << "\n";
         cout << "Medical Conditions: " << students[i].medical_conditions << "\n";
@@ -229,7 +258,7 @@ void updateStudents()
                 if (students[i].id == id)
                 {
                     double new_gpa;
-                    cout << "Enter new GPA of the student " << students[i].gpa << ": ";
+                    cout << "Enter new GPA of the student " << students[i].name << ": ";
                     cin >> new_gpa;
                     students[i].gpa = new_gpa;
                 }
@@ -273,7 +302,6 @@ void sortById()
 {
     for (int i = 0; i < student_count - 1; i++)
     {
-
         for (int j = 0; j < student_count - i - 1; j++)
         {
             if (students[j].id > students[j + 1].id)
@@ -295,7 +323,7 @@ void menu()
         cout << "1. Add students\n";
         cout << "2. Delete students\n";
         cout << "3. Update students\n";
-        cout << "4. Display All students\n";
+        cout << "4. Display all students\n";
         cout << "5. Display number of students\n";
         cout << "6. Search Methods\n";
         cout << "7. Sort Methods\n";
