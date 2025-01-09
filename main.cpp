@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
+#include <cstdlib>
 using namespace std;
-
 struct StudentData
 {
     int id;
@@ -62,6 +62,8 @@ bool isEmailUnique(const string &email)
 
 void addStudents()
 {
+    system("clear");
+    system("cls");
     cout << "\nEnter Student Data!\n";
     for (int i = student_count; i < MAX_STUDENTS_SIZE; i++)
     {
@@ -166,6 +168,8 @@ void addStudents()
 }
 void displayStudents()
 {
+    system("clear");
+    system("cls");
     cout << "\nDisplaying Student Information:\n";
     cout << "-------------------------------------------------------------\n";
 
@@ -204,6 +208,8 @@ void displayStudents()
 
 void deleteStudents()
 {
+    system("clear");
+    system("cls");
     int id;
     cout << "Enter the ID of student: ";
     cin >> id;
@@ -225,6 +231,8 @@ void deleteStudents()
 
 void updateStudents()
 {
+    system("clear");
+    system("cls");
     int id;
     cout << "Enter the ID of the student: ";
     cin >> id;
@@ -277,6 +285,8 @@ void updateStudents()
 
 void displayNumberOfStudents()
 {
+    system("clear");
+    system("cls");
     cout << "The Number of Student are: " << student_count << endl;
 }
 
@@ -313,7 +323,81 @@ void sortById()
         }
     }
     cout << "Sorted By ID!";
+    cout << endl;
 }
+
+void sortByAge()
+{
+    for (int i = 0; i < student_count - 1; i++)
+    {
+        for (int j = 0; j < student_count - i - 1; j++)
+        {
+            if (students[j].age > students[j + 1].age)
+            {
+                StudentData temp = students[j];
+                students[j] = students[j + 1];
+                students[j + 1] = temp;
+            }
+        }
+    }
+    cout << "Sorted By Age!";
+    cout << endl;
+}
+
+void sortByDegree()
+{
+    for (int i = 0; i < student_count - 1; i++)
+    {
+        for (int j = 0; j < student_count - i - 1; j++)
+        {
+            if (students[j].degree > students[j + 1].degree)
+            {
+                StudentData temp = students[j];
+                students[j] = students[j + 1];
+                students[j + 1] = temp;
+            }
+        }
+    }
+    cout << "Sorted By Degree!";
+    cout << endl;
+}
+
+void sortByJoiningSession()
+{
+    for (int i = 0; i < student_count - 1; i++)
+    {
+        for (int j = 0; j < student_count - i - 1; j++)
+        {
+            if (students[j].joining_session > students[j + 1].joining_session)
+            {
+                StudentData temp = students[j];
+                students[j] = students[j + 1];
+                students[j + 1] = temp;
+            }
+        }
+    }
+    cout << "Sorted By Joining Session!";
+    cout << endl;
+}
+
+void sortByRollNumber()
+{
+    for (int i = 0; i < student_count - 1; i++)
+    {
+        for (int j = 0; j < student_count - i - 1; j++)
+        {
+            if (students[j].roll_number > students[j + 1].roll_number)
+            {
+                StudentData temp = students[j];
+                students[j] = students[j + 1];
+                students[j + 1] = temp;
+            }
+        }
+    }
+    cout << "Sorted By Roll Number!";
+    cout << endl;
+}
+
 void menu()
 {
     int choice = 0;
@@ -326,7 +410,7 @@ void menu()
         cout << "4. Display all students\n";
         cout << "5. Display number of students\n";
         cout << "6. Search Methods\n";
-        cout << "7. Sort Methods\n";
+        cout << "7. Sort Methods(ascending order)\n";
         cout << "8. Exit Program\n";
         cout << "Enter your choice: ";
         cin >> choice;
@@ -390,22 +474,22 @@ void menu()
             switch (choice_sort)
             {
             case 1:
-                cout << "Sort By Age\n";
+                sortByAge();
                 break;
             case 2:
                 sortById();
                 break;
             case 3:
-                cout << "Sort By Degree\n";
+                sortByDegree();
                 break;
             case 4:
-                cout << "Sort By Joining Session\n";
+                sortByJoiningSession();
                 break;
             case 5:
-                cout << "Sort By Roll Number\n";
+                sortByRollNumber();
                 break;
             default:
-                cout << "Enter only valid choice\n";
+                cout << "Enter a valid choice\n";
                 break;
             }
             break;
@@ -413,7 +497,7 @@ void menu()
             cout << "Exit Program! Bye\n";
             break;
         default:
-            cout << "Enter only valid choice\n";
+            cout << "Enter a valid choice\n";
             break;
         }
 
